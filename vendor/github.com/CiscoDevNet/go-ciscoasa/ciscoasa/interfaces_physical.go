@@ -80,6 +80,8 @@ func (s *interfaceService) UpdatePhysicalInterface(
 	forwardTrafficCX bool,
 	forwardTrafficSFR bool,
 	hardwareID string,
+	channelGroupID string,
+    channelGroupMode string,
 	interfaceDesc string,
 	ipAddress *IPAddress,
 	ipv6Info *IPv6Info,
@@ -103,8 +105,8 @@ func (s *interfaceService) UpdatePhysicalInterface(
 
 	r := &PhysicalInterface{
 		ActiveMacAddress:  activeMacAddress,
-		ChannelGroupID:    "",
-		ChannelGroupMode:  "active",
+		ChannelGroupID:   channelGroupID,
+		ChannelGroupMode: channelGroupMode,
 		Duplex:            duplex,
 		FlowcontrolHigh:   -1,
 		FlowcontrolLow:    -1,

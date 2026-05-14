@@ -502,6 +502,8 @@ func resourceCiscoASAPhysicalInterfaceCreate(d *schema.ResourceData, meta interf
 		physicalInterface.ForwardTrafficCX,
 		physicalInterface.ForwardTrafficSFR,
 		physicalInterface.HardwareID,
+		physicalInterface.ChannelGroupID,
+		physicalInterface.ChannelGroupMode,
 		physicalInterface.InterfaceDesc,
 		physicalInterface.IPAddress,
 		physicalInterface.Ipv6Info,
@@ -546,13 +548,8 @@ func resourceCiscoASAPhysicalInterfaceRead(d *schema.ResourceData, meta interfac
 	d.Set("forward_traffic_sfr", r.ForwardTrafficSFR)
 	d.Set("hardware_id", r.HardwareID)
 	//BDJ
-	if err := d.Set("channel_group_id", r.ChannelGroupID); err != nil {
-    return diag.FromErr(err)
-	}
-
-	if err := d.Set("channel_group_mode", r.ChannelGroupMode); err != nil {
-    return diag.FromErr(err)
-	}
+	d.Set("channel_group_id", r.ChannelGroupID)
+	d.Set("channel_group_mode", r.ChannelGroupMode)
 	//
 	d.Set("interface_desc", r.InterfaceDesc)
 	d.Set("management_only", r.ManagementOnly)
@@ -633,6 +630,8 @@ func resourceCiscoASAPhysicalInterfaceUpdate(d *schema.ResourceData, meta interf
 			physicalInterface.ForwardTrafficCX,
 			physicalInterface.ForwardTrafficSFR,
 			physicalInterface.HardwareID,
+			physicalInterface.ChannelGroupID,
+			physicalInterface.ChannelGroupMode,	
 			physicalInterface.InterfaceDesc,
 			physicalInterface.IPAddress,
 			physicalInterface.Ipv6Info,
