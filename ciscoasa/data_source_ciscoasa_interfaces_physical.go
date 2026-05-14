@@ -45,6 +45,15 @@ func dataSourceCiscoASAPhysicalInterfaces() *schema.Resource {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
+						"channel_group_id": {
+						    Type:     schema.TypeString,
+						    Computed: true,
+						},
+						
+						"channel_group_mode": {
+						    Type:     schema.TypeString,
+						    Computed: true,
+						},
 
 						"interface_desc": {
 							Type:     schema.TypeString,
@@ -343,6 +352,13 @@ func dataSourceCiscoASAPhysicalInterfacesRead(ctx context.Context, d *schema.Res
 		interfaceMap["forward_traffic_cx"] = r.ForwardTrafficCX
 		interfaceMap["forward_traffic_sfr"] = r.ForwardTrafficSFR
 		interfaceMap["hardware_id"] = r.HardwareID
+		if err := d.Set("channel_group_id", r.ChannelGroupID); err != nil {
+		    return diag.FromErr(err)
+		}
+		
+		if err := d.Set("channel_group_mode", r.ChannelGroupMode); err != nil {
+		    return diag.FromErr(err)
+		}
 		interfaceMap["interface_desc"] = r.InterfaceDesc
 		interfaceMap["management_only"] = r.ManagementOnly
 		interfaceMap["mtu"] = r.Mtu
