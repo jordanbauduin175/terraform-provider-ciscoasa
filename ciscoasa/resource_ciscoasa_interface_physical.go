@@ -591,6 +591,8 @@ func resourceCiscoASAPhysicalInterfaceUpdate(d *schema.ResourceData, meta interf
 		"security_level",
 		"shutdown",
 		"stand_by_mac_address",
+		"channel_group_id",
+		"channel_group_mode",
 	) {
 		physicalInterface := ciscoasa.PhysicalInterface{
 			ActiveMacAddress:  d.Get("active_mac_address").(string),
