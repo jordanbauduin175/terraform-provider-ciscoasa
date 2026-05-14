@@ -10,4 +10,4 @@ require (
 	golang.org/x/tools v0.1.7 // indirect
 )
 
-replace github.com/CiscoDevNet/go-ciscoasa => ../go-ciscoasa
+replace github.com/CiscoDevNet/go-ciscoasa => github.com/jordanbauduin175/go-ciscoasa v0.2.6
