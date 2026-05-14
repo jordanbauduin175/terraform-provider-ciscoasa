@@ -33,6 +33,16 @@ func dataSourceCiscoASAPhysicalInterface() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			//BDJ
+			"channel_group_id": {
+			    Type:     schema.TypeString,
+			    Computed: true,
+			},
+			
+			"channel_group_mode": {
+			    Type:     schema.TypeString,
+			    Computed: true,
+			},
 
 			"interface_desc": {
 				Type:     schema.TypeString,
@@ -331,6 +341,14 @@ func dataSourceCiscoASAPhysicalInterfaceRead(ctx context.Context, d *schema.Reso
 	}
 	if err := d.Set("hardware_id", r.HardwareID); err != nil {
 		return diag.FromErr(err)
+	}
+	// BDJ
+	if err := d.Set("channel_group_id", r.ChannelGroupID); err != nil {
+    return diag.FromErr(err)
+	}
+	
+	if err := d.Set("channel_group_mode", r.ChannelGroupMode); err != nil {
+	    return diag.FromErr(err)
 	}
 	if err := d.Set("interface_desc", r.InterfaceDesc); err != nil {
 		return diag.FromErr(err)
