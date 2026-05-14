@@ -566,7 +566,7 @@ func resourceCiscoASAPhysicalInterfaceRead(d *schema.ResourceData, meta interfac
 	d.Set("stand_by_mac_address", r.StandByMacAddress)
 
 	return nil
-}
+} 
 
 func resourceCiscoASAPhysicalInterfaceUpdate(d *schema.ResourceData, meta interface{}) error {
 	ca := meta.(*ciscoasa.Client)

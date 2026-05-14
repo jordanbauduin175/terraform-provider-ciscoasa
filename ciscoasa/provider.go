@@ -63,6 +63,7 @@ func Provider() *schema.Provider {
 			"ciscoasa_license_register":          resourceCiscoASALicenseRegister(),
 			"ciscoasa_license_renewauth":         resourceCiscoASALicenseRenewAuth(),
 			"ciscoasa_license_renewid":           resourceCiscoASALicenseRenewId(),
+			"ciscoasa_cli_config":                resourceCiscoASACLIConfig(),
 			"ciscoasa_write_memory":              resourceCiscoASAWriteMemory(),
 		},
 
