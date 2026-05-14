@@ -11,6 +11,7 @@ import (
 	"github.com/CiscoDevNet/go-ciscoasa/ciscoasa"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
+	
 )
 
 func resourceCiscoASAPhysicalInterface() *schema.Resource {
@@ -47,8 +48,26 @@ func resourceCiscoASAPhysicalInterface() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
+			}, 
+			//added BDJ
+			"channel_group_id": {
+			    Type:     schema.TypeString,
+			    Optional: true,
+			    Computed: true,
 			},
 
+			"channel_group_mode": {
+			    Type:     schema.TypeString,
+			    Optional: true,
+			    Computed: true,
+			    ValidateFunc: validation.StringInSlice([]string{
+			        "",
+			        "active",
+			        "passive",
+			        "on",
+			    }, false),
+			},
+			// close add
 			"interface_desc": {
 				Type:     schema.TypeString,
 				Optional: true,
@@ -449,6 +468,10 @@ func resourceCiscoASAPhysicalInterfaceCreate(d *schema.ResourceData, meta interf
 		ForwardTrafficCX:  d.Get("forward_traffic_cx").(bool),
 		ForwardTrafficSFR: d.Get("forward_traffic_sfr").(bool),
 		HardwareID:        hardwareID,
+		//added BDJ
+		ChannelGroupID:   d.Get("channel_group_id").(string),
+		ChannelGroupMode: d.Get("channel_group_mode").(string),
+		//
 		InterfaceDesc:     d.Get("interface_desc").(string),
 		Kind:              kind,
 		ManagementOnly:    d.Get("management_only").(bool),
@@ -522,6 +545,15 @@ func resourceCiscoASAPhysicalInterfaceRead(d *schema.ResourceData, meta interfac
 	d.Set("forward_traffic_cx", r.ForwardTrafficCX)
 	d.Set("forward_traffic_sfr", r.ForwardTrafficSFR)
 	d.Set("hardware_id", r.HardwareID)
+	//BDJ
+	if err := d.Set("channel_group_id", r.ChannelGroupID); err != nil {
+    return diag.FromErr(err)
+	}
+
+	if err := d.Set("channel_group_mode", r.ChannelGroupMode); err != nil {
+    return diag.FromErr(err)
+	}
+	//
 	d.Set("interface_desc", r.InterfaceDesc)
 	d.Set("management_only", r.ManagementOnly)
 	d.Set("mtu", r.Mtu)
@@ -565,6 +597,10 @@ func resourceCiscoASAPhysicalInterfaceUpdate(d *schema.ResourceData, meta interf
 			ForwardTrafficCX:  d.Get("forward_traffic_cx").(bool),
 			ForwardTrafficSFR: d.Get("forward_traffic_sfr").(bool),
 			HardwareID:        d.Get("hardware_id").(string),
+			// BDJ
+			ChannelGroupID:   d.Get("channel_group_id").(string),
+			ChannelGroupMode: d.Get("channel_group_mode").(string),
+			//
 			InterfaceDesc:     d.Get("interface_desc").(string),
 			ManagementOnly:    d.Get("management_only").(bool),
 			Mtu:               d.Get("mtu").(int),
